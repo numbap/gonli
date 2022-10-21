@@ -113,7 +113,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getServerSideProps({ locale, params }) {
+export async function getStaticProps({ locale, params }) {
   const content = await fetchContent()
 
   let id = params.id

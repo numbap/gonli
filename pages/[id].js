@@ -12,7 +12,7 @@ import { TextField, Grid } from '@mui/material'
 import { fetchContent } from '../lib/cms'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { validateFloat, formatDate } from '../utils/math'
+import { validateFloat, formatDate, no0 } from '../utils/math'
 
 export default function Home(props) {
   /* istanbul ignore next */
@@ -70,7 +70,7 @@ export default function Home(props) {
                   errorMessage
                 )
               )
-              setTargetPrice(e.target.value)
+              setTargetPrice(no0(e.target.value))
             }
             if (!e.target.value) {
               setTargetPrice(0)
@@ -95,25 +95,25 @@ export default function Home(props) {
   )
 }
 
-export async function getStaticPaths() {
-  let symbols = await getTSXSymbols()
+// export async function getStaticPaths() {
+//   let symbols = await getTSXSymbols()
 
-  console.log(symbols.results)
-  let justSymbols = symbols.results.map((x) => {
-    return {
-      params: {
-        id: x.symbol,
-      },
-    }
-  })
+//   console.log(symbols.results)
+//   let justSymbols = symbols.results.map((x) => {
+//     return {
+//       params: {
+//         id: x.symbol,
+//       },
+//     }
+//   })
 
-  return {
-    paths: [...justSymbols],
-    fallback: false,
-  }
-}
+//   return {
+//     paths: [...justSymbols],
+//     fallback: false,
+//   }
+// }
 
-export async function getStaticProps({ locale, params }) {
+export async function getServerSideProps({ locale, params }) {
   const content = await fetchContent()
 
   let id = params.id

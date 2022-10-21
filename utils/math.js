@@ -28,3 +28,11 @@ export const formatDate = (date) => {
 function isValidDate(d) {
   return d instanceof Date && !isNaN(d)
 }
+
+export const no0 = (number) => {
+  if (number.slice(0, 1) == '0') {
+    return number.slice(1)
+  } else {
+    return number
+  }
+}

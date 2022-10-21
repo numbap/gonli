@@ -69,9 +69,9 @@ export default function Home(props) {
               searchString
             )
           )
-          .map((x) => {
+          .map((x, i) => {
             return (
-              <Grid item xs={3}>
+              <Grid item xs={3} key={i}>
                 <div>
                   {' '}
                   <Link href={`/${x.symbol}`}>

@@ -86,7 +86,7 @@ export default function Home(props) {
         <br />
       </div>
 
-      <TrendChart data={props.priceHistory} symbol="IBM" />
+      <TrendChart data={props.priceHistory} symbol={props.id} />
 
       <Link href={`/home`}>
         <a>Back to Home</a>

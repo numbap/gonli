@@ -12,6 +12,7 @@ import { TextField, Grid } from '@mui/material'
 import { fetchContent } from '../lib/cms'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { validateFloat, formatDate } from '../utils/math'
 
 export default function Home(props) {
   /* istanbul ignore next */
@@ -56,17 +57,20 @@ export default function Home(props) {
           placeholder={0}
           onChange={(e) => {
             e.preventDefault()
-            if (!isNaN(e.target.value) && e.target.value >= 0) {
+            if (
+              validateFloat(e.target.value) &&
+              parseFloat(e.target.value) >= 0
+            ) {
               setTargetDate(
                 priceToDate(
                   props.interceptDate,
                   props.intercept,
                   props.slope,
-                  parseInt(e.target.value),
+                  parseFloat(e.target.value),
                   errorMessage
                 )
               )
-              setTargetPrice(parseInt(e.target.value))
+              setTargetPrice(e.target.value)
             }
             if (!e.target.value) {
               setTargetPrice(0)
@@ -77,7 +81,7 @@ export default function Home(props) {
         <br />
         <br />
         <br />
-        <p>{targetDate}</p>
+        <p>{formatDate(targetDate)}</p>
         <br />
         <br />
       </div>

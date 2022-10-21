@@ -16,8 +16,7 @@ export default function Home(props) {
   /* istanbul ignore next */
   const t = props.locale === 'en' ? en : fr
   const errorMessage = 'Please enter a valid price...'
-  const [targetPrice, setTargetPrice] = useState(0)
-  const [targetDate, setTargetDate] = useState(errorMessage)
+  const [searchString, setSearchString] = useState('')
 
   logger.info('Home page')
   logger.error('test')
@@ -25,8 +24,6 @@ export default function Home(props) {
   useEffect(() => {
     logger.debug('Home mounted')
   }, [])
-
-  console.log(props.tsxSymbols.results)
 
   return (
     <div
@@ -46,22 +43,44 @@ export default function Home(props) {
 
       <div>
         <br />
+
+        <TextField
+          id="outlined-basic"
+          m={3}
+          label="Search"
+          variant="outlined"
+          color="primary"
+          sx={{ backgroundColor: 'white' }}
+          value={searchString}
+          placeholder="search"
+          onChange={(e) => {
+            e.preventDefault()
+            setSearchString(e.target.value)
+          }}
+        />
+
         <br />
         <br />
       </div>
       <Grid container spacing={2}>
-        {props.tsxSymbols.results.map((x) => {
-          return (
-            <Grid item xs={3}>
-              <div>
-                {' '}
-                <Link href={`/${x.symbol}`}>
-                  <a>{x.name}</a>
-                </Link>
-              </div>
-            </Grid>
+        {props.tsxSymbols.results
+          .filter((x) =>
+            `${x.name.toLowerCase()} ${x.name.toLowerCase()}`.includes(
+              searchString
+            )
           )
-        })}
+          .map((x) => {
+            return (
+              <Grid item xs={3}>
+                <div>
+                  {' '}
+                  <Link href={`/${x.symbol}`}>
+                    <a>{x.name}</a>
+                  </Link>
+                </div>
+              </Grid>
+            )
+          })}
       </Grid>
     </div>
   )

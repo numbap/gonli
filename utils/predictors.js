@@ -6,6 +6,6 @@ export const priceToDate = (startDate, startPrice, slope, endPrice, error) => {
   if (date < new Date()) {
     return error
   } else {
-    return `${date.toString()} ${endPrice}`
+    return date.toString()
   }
 }

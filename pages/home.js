@@ -17,7 +17,9 @@ export default function Home(props) {
   const t = props.locale === 'en' ? en : fr
   const errorMessage = 'Please enter a valid price...'
   const [searchString, setSearchString] = useState('')
-
+  console.log(
+    'I was addicted to the hokey pokey, but then I turned myself around.'
+  )
   logger.info('Home page')
   logger.error('test')
   logger.warn('test')
